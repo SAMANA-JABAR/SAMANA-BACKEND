@@ -2,15 +2,16 @@
 from flask import Flask, jsonify, request
 import firebase_admin
 from firebase_admin import credentials
+from google.cloud import firestore
 
 #add firebase credentials to the app
 cred = credentials.Certificate("path/to/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
-db = firestore.client()
+db = firestore.Client()
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def add_user():
     #get json file
     data = flask.request.json
