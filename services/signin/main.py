@@ -10,7 +10,7 @@ db = firestore.client()
 
 app = Flask(__name__)
 
-@app.route('/', method=)
+@app.route('/', methods=['POST'])
 def add_user():
     #get json file
     data = flask.request.json
