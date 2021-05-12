@@ -1,2 +1,5 @@
 Flask==1.1.2
 google-cloud-firestore==2.1.1
+firebase-admin==5.0.0
+cachecontrol==0.12.6
+msgpack==1.0.2
