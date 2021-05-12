@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def add_user():
     #get json file
-    data = flask.request.json
+    data = request.json
     nik = data["nik"]
     password = data["password"]
 
@@ -25,8 +25,8 @@ def add_user():
         u'password' : password
     })
 
-    #return test
-    return nik + " & " + password
+    #server response
+    return jsonify({"status":"user added succesfully"})
 
 if __name__ == '__main__':
     app.run(debug=True)
