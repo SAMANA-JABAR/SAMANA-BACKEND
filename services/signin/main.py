@@ -18,11 +18,14 @@ def add_user():
     password = data["password"]
 
     #add nik and password to users collection
-    doc_ref = db.collection(u'users').document(u'nik')
+    doc_ref = db.collection(u'users').document(nik)
     doc_ref.set({
         u'nik' : nik,
         u'password' : password
     })
+
+    #return test
+    return nik + " & " + password
 
 if __name__ == '__main__':
     app.run(debug=True)
