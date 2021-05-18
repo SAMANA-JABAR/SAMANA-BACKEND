@@ -13,10 +13,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def get_user():
-    #get json file
-    data = request.json
-    nik = data["nik"]
-    password = data["password"]
+    #get request form
+    nik = request.form.get("nik")
+    password = request.form.get("password")
 
     #get user data from database
     doc_ref = db.collection(u'users').document(nik)
