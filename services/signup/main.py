@@ -18,15 +18,29 @@ def add_user():
     nik = data["nik"]
     password = data["password"]
 
-    #add nik and password to users collection
+    #get user data
     doc_ref = db.collection(u'users').document(nik)
-    doc_ref.set({
-        u'nik' : nik,
-        u'password' : password
-    })
-
-    #server response
-    return jsonify({"status":"user added succesfully"})
+    doc = doc_ref.get()
+    #check if user already exists
+    if doc.exists:
+        user = doc.to_dict()
+        #check if password already set
+        if "password" in user:
+            return jsonify({"status":"nik sudah terdaftar"})
+        else:
+            #add nik and password to users collection
+            doc_ref.set({
+                u'nik' : nik,
+                u'password' : password
+            })
+            return jsonify({"status":"user telah terdaftar"})
+    else:
+        #add nik and password to users collection
+        doc_ref.set({
+            u'nik' : nik,
+            u'password' : password
+        })
+        return jsonify({"status":"user telah terdaftar"})
 
 if __name__ == '__main__':
     app.run(debug=True)
