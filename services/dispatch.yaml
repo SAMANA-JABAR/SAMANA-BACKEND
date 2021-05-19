@@ -1,0 +1,10 @@
+dispatch:
+
+  -url: "sharp-ring-312411.et.r.appspot.com/"
+  service: default
+
+  -url: "*/signup"
+  service: signup
+
+  -url: "*/login"
+  service: login
