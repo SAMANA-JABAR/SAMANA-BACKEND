@@ -1,10 +1,13 @@
 dispatch:
 
-  -url: "sharp-ring-312411.et.r.appspot.com/"
-  service: default
+  - url: "*/favicon.ico"
+    service: default
 
-  -url: "*/signup"
-  service: signup
+  - url: "sharp-ring-312411.et.r.appspot.com/"
+    service: default
 
-  -url: "*/login"
-  service: login
+  - url: "*/signup/*"
+    service: signup
+
+  - url: "*/login/*"
+    service: login
