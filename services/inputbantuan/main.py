@@ -57,7 +57,7 @@ def add_user():
             u'nik' : nik,
             u'tgl lahir' : tgl_lahir,
             u'tanggungan' : jml_tanggungan,
-            u'pendidikan' : pendidika,
+            u'pendidikan' : pendidikan,
             u'profesi' : profesi,
             u'status' : status,
             u'gaji' : gaji,
@@ -69,7 +69,7 @@ def add_user():
             u'alamat' : alamat,
             u'bantuan' : {
                 current_assistance : {
-                    u'jenis' : bantuan
+                    u'jenis' : bantuan,
                     u'tahap' : tahap,
                     u'status' : u'pengajuan'
                 }
