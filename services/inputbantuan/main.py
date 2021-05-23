@@ -41,7 +41,7 @@ def add_user():
 
     #assign current assistance name
     now = datetime.datetime.now()
-    current_assistance = now.year + "-" + bantuan + "-" + tahap
+    current_assistance = str(now.year) + "-" + bantuan + "-" + tahap
 
     #get user data
     doc_ref = db.collection(u'users').document(nik)
