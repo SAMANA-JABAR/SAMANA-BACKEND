@@ -22,17 +22,14 @@ def get_user():
     doc_ref = db.collection(u'users').document(nik)
     doc = doc_ref.get()
     #update existing password
-    if doc.exists:
-        user = doc.to_dict()
-        if user["password"] == current_password:
-            doc_ref.update({
-                u'password' : new_password
-            })
-            return jsonify({"status":"update password berhasil"})
-        else:
-            return jsonify({"status":"nik dan password tidak sesuai"})
+    user = doc.to_dict()
+    if user["password"] == current_password:
+        doc_ref.update({
+            u'password' : new_password
+        })
+        return jsonify({"status":"update password berhasil"})
     else:
-        return jsonify({"status":"nik tidak terdaftar"})
+        return jsonify({"status":"password salah"})
 
 if __name__ == '__main__':
     app.run(debug=True)
