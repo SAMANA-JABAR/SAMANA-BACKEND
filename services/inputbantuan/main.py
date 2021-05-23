@@ -48,8 +48,41 @@ def add_user():
     doc = doc_ref.get()
     #check if user already exists
     if doc.exists:
-        #check if nik has already signed
-        return jsonify({"status":"nik sudah terdaftar"})
+        #check if user profile exists
+        if "nama" in user:
+            return jsonify({"status":"nik sudah terdaftar"})
+        else:
+            #add user to the database
+            doc_ref.set({
+                u'nama' : nama,
+                u'tgl lahir' : tgl_lahir,
+                u'tanggungan' : jml_tanggungan,
+                u'pendidikan' : pendidikan,
+                u'profesi' : profesi,
+                u'status' : status,
+                u'gaji' : gaji,
+                u'kota' : kota,
+                u'kecamatan' : kecamatan,
+                u'kelurahan' : kelurahan,
+                u'rt' : rt,
+                u'rw' : rw,
+                u'alamat' : alamat,
+                u'bantuan' : {
+                    current_assistance : {
+                        u'jenis' : bantuan,
+                        u'tahap' : tahap,
+                        u'status' : u'pengajuan'
+                    }
+                },
+                u'kesehatan' : kesehatan,
+                u'atap' : atap,
+                u'dinding' : dinding,
+                u'lantai' : lantai,
+                u'penerangan' : penerangan,
+                u'air' : air,
+                u'luas rumah' : luas_rumah
+            },{merge: true})
+            return jsonify({"status":"nik telah terdaftar"})
     else:
         #add user to the database
         doc_ref.set({
