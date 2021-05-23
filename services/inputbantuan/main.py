@@ -39,7 +39,7 @@ def add_user():
     air = request.form.get("air")
     luas_rumah = request.form.get("luas rumah")
 
-    #get current year
+    #assign current assistance name
     now = datetime.datetime.now()
     current_assistance = now.year + "-" + bantuan + "-" + tahap
 
@@ -71,6 +71,7 @@ def add_user():
                 current_assistance : {
                     u'jenis' : bantuan
                     u'tahap' : tahap,
+                    u'status' : u'pengajuan'
                 }
             },
             u'kesehatan' : kesehatan,
