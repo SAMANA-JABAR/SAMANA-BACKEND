@@ -22,10 +22,14 @@ def get_user():
     doc = doc_ref.get()
     if doc.exists:
         user = doc.to_dict()
-        if user["password"] == password:
-            return jsonify(user)
+        #check if password already set
+        if "password" in user:
+            if user["password"] == password:
+                return jsonify(user)
+            else:
+                return jsonify({"status":"nik dan password tidak sesuai"})
         else:
-            return jsonify({"status":"nik dan password tidak sesuai"})
+            return jsonify({"status":"user belum terdaftar"})
     else:
         return jsonify({"status":"nik tidak terdaftar"})
 
