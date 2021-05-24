@@ -28,9 +28,9 @@ def add_user():
             return jsonify({"status":"nik sudah terdaftar"})
         else:
             #add nik and password to users collection
-            doc_ref.set({
+            doc_ref.update({
                 u'password' : password
-            },{merge: true})
+            })
             return jsonify({"status":"user telah terdaftar"})
     else:
         #add nik and password to users collection
