@@ -12,7 +12,7 @@ db = firestore.Client()
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def get_user():
+def change_password():
     #get request form
     nik = request.form.get("nik")
     current_password = request.form.get("currentpass")

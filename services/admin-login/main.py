@@ -1,4 +1,4 @@
-#login service
+#login service for admin app
 from flask import Flask, jsonify, request
 import firebase_admin
 from firebase_admin import credentials
@@ -12,26 +12,26 @@ db = firestore.Client()
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def get_user():
+def get_admin():
     #get request form
     email = request.form.get("email")
     password = request.form.get("password")
 
-    #get user data from database
-    doc_ref = db.collection(u'users').document(email)
+    #get admin data from database
+    doc_ref = db.collection(u'admins').document(email)
     doc = doc_ref.get()
     if doc.exists:
-        user = doc.to_dict()
+        admin = doc.to_dict()
         #check if password already set
-        if "password" in user:
-            if user["password"] == password:
-                return jsonify(user)
+        if "password" in admin:
+            if admin["password"] == password:
+                return jsonify(admin)
             else:
-                return jsonify({"status":"nik dan password tidak sesuai"})
+                return jsonify({"status":"email dan password tidak sesuai"})
         else:
             return jsonify({"status":"user belum terdaftar"})
     else:
-        return jsonify({"status":"nik tidak terdaftar"})
+        return jsonify({"status":"email tidak terdaftar"})
 
 if __name__ == '__main__':
     app.run(debug=True)
