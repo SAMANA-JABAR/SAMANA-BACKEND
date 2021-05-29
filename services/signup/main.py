@@ -25,7 +25,7 @@ def add_user():
         user = doc.to_dict()
         #check if password already set
         if "password" in user:
-            return jsonify({"status":"nik sudah terdaftar"})
+            return jsonify({"status":"nik sudah terdaftar"}), 401
         else:
             #add nik and password to users collection
             doc_ref.update({

@@ -15,6 +15,7 @@ app = Flask(__name__)
 def add_admin():
     #get request form
     email = request.form.get("email")
+    name = request.form.get("nama")
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -26,7 +27,7 @@ def add_admin():
         admin = doc.to_dict()
         #check if password already set
         if "password" in admin:
-            return jsonify({"status":"email sudah terdaftar"})
+            return jsonify({"status":"email sudah terdaftar"}), 401
         else:
             #add nik and password to users collection
             doc_ref.update({
@@ -37,6 +38,7 @@ def add_admin():
         #add nik and password to users collection
         doc_ref.set({
             u'email' : email,
+            u'nama' : name,
             u'username' : username,
             u'password' : password
         })

@@ -27,11 +27,11 @@ def get_admin():
             if admin["password"] == password:
                 return jsonify(admin)
             else:
-                return jsonify({"status":"email dan password tidak sesuai"})
+                return jsonify({"status":"email dan password tidak sesuai"}), 401
         else:
-            return jsonify({"status":"user belum terdaftar"})
+            return jsonify({"status":"user belum terdaftar"}), 401
     else:
-        return jsonify({"status":"email tidak terdaftar"})
+        return jsonify({"status":"email tidak terdaftar"}), 401
 
 if __name__ == '__main__':
     app.run(debug=True)

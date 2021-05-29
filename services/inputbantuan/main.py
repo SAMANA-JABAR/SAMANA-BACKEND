@@ -52,13 +52,13 @@ def add_user():
         #add user to the database
         doc_ref.update({
             u'nama' : nama,
-            u'tgllahir' : tgl_lahir,
-            u'tanggungan' : jml_tanggungan,
+            u'tanggal_lahir' : tgl_lahir,
+            u'tanggungan_keluarga' : jml_tanggungan,
             u'pendidikan' : pendidikan,
             u'profesi' : profesi,
             u'status' : status,
             u'gaji' : gaji,
-            u'kota' : kota,
+            u'kota_kabupaten' : kota,
             u'kecamatan' : kecamatan,
             u'kelurahan' : kelurahan,
             u'rt' : rt,
@@ -70,7 +70,7 @@ def add_user():
             u'lantai' : lantai,
             u'penerangan' : penerangan,
             u'air' : air,
-            u'luasrumah' : luas_rumah
+            u'luas_rumah' : luas_rumah
         })
         doc_ref.set({
             u'bantuan' : {
@@ -87,13 +87,13 @@ def add_user():
         doc_ref.set({
             u'nama' : nama,
             u'nik' : nik,
-            u'tgllahir' : tgl_lahir,
-            u'tanggungan' : jml_tanggungan,
+            u'tanggal_lahir' : tgl_lahir,
+            u'tanggungan_keluarga' : jml_tanggungan,
             u'pendidikan' : pendidikan,
             u'profesi' : profesi,
             u'status' : status,
             u'gaji' : gaji,
-            u'kota' : kota,
+            u'kota_kabupaten' : kota,
             u'kecamatan' : kecamatan,
             u'kelurahan' : kelurahan,
             u'rt' : rt,

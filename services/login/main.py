@@ -27,11 +27,11 @@ def get_user():
             if user["password"] == password:
                 return jsonify(user)
             else:
-                return jsonify({"status":"nik dan password tidak sesuai"})
+                return jsonify({"status":"nik dan password tidak sesuai"}), 401
         else:
-            return jsonify({"status":"user belum terdaftar"})
+            return jsonify({"status":"user belum terdaftar"}), 401
     else:
-        return jsonify({"status":"nik tidak terdaftar"})
+        return jsonify({"status":"nik tidak terdaftar"}), 401
 
 if __name__ == '__main__':
     app.run(debug=True)

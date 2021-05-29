@@ -29,7 +29,7 @@ def change_password():
         })
         return jsonify({"status":"update password berhasil"})
     else:
-        return jsonify({"status":"password salah"})
+        return jsonify({"status":"password salah"}), 401
 
 if __name__ == '__main__':
     app.run(debug=True)
