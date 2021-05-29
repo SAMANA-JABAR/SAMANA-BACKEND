@@ -39,9 +39,9 @@ def add_user():
     air = request.form.get("air")
     luas_rumah = request.form.get("luas rumah")
 
-    #assign current assistance name
+    #assign current date
     now = datetime.datetime.now()
-    current_assistance = str(now.year) + "-" + bantuan + "-" + tahap
+    current_date = now.strftime("%d") + " " + now.strftime("%B") + ", " + now.strftime("%Y")
 
     #get user data
     doc_ref = db.collection(u'users').document(nik)
@@ -74,9 +74,10 @@ def add_user():
         })
         doc_ref.set({
             u'bantuan' : {
-                current_assistance : {
+                str(now.timestamp()) : {
                     u'jenis' : bantuan,
                     u'tahap' : tahap,
+                    u'tanggal' : current_date,
                     u'status' : u'pengajuan'
                 }
             },
@@ -100,9 +101,10 @@ def add_user():
             u'rw' : rw,
             u'alamat' : alamat,
             u'bantuan' : {
-                current_assistance : {
+                str(now.timestamp()) : {
                     u'jenis' : bantuan,
                     u'tahap' : tahap,
+                    u'tanggal' : date,
                     u'status' : u'pengajuan'
                 }
             },
