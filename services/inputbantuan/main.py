@@ -17,13 +17,13 @@ def add_user():
     #get request form
     nama = request.form.get("nama")
     nik = request.form.get("nik")
-    tgl_lahir = request.form.get("tgl lahir")
-    jml_tanggungan = request.form.get("tanggungan")
+    tgl_lahir = request.form.get("tanggal_lahir")
+    jml_tanggungan = request.form.get("tanggungan_keluarga")
     pendidikan = request.form.get("pendidikan")
     profesi = request.form.get("profesi")
     status = request.form.get("status")
     gaji = request.form.get("gaji")
-    kota = request.form.get("kota")
+    kota = request.form.get("kota_kabupaten")
     kecamatan = request.form.get("kecamatan")
     kelurahan = request.form.get("kelurahan")
     rt = request.form.get("rt")
@@ -37,7 +37,7 @@ def add_user():
     lantai = request.form.get("lantai")
     penerangan = request.form.get("penerangan")
     air = request.form.get("air")
-    luas_rumah = request.form.get("luas rumah")
+    luas_rumah = request.form.get("luas_rumah")
 
     #assign current date
     now = datetime.datetime.now()
@@ -72,16 +72,15 @@ def add_user():
             u'air' : air,
             u'luas_rumah' : luas_rumah
         })
-        doc_ref.set({
-            u'bantuan' : {
-                str(now.timestamp()) : {
-                    u'jenis' : bantuan,
-                    u'tahap' : tahap,
-                    u'tanggal' : current_date,
-                    u'status' : u'pengajuan'
-                }
-            },
-        }, merge=True)
+        #add new bantuan
+        doc_ref.update({
+            u'bantuan' : firestore.ArrayUnion([{
+                u'jenis' : bantuan,
+                u'tahap' : tahap,
+                u'tanggal' : current_date,
+                u'status' : u'pengajuan'
+            }])
+        })
         return jsonify({"status":"data telah diupdate"})
     else:
         #add user to the database
@@ -100,21 +99,19 @@ def add_user():
             u'rt' : rt,
             u'rw' : rw,
             u'alamat' : alamat,
-            u'bantuan' : {
-                str(now.timestamp()) : {
-                    u'jenis' : bantuan,
-                    u'tahap' : tahap,
-                    u'tanggal' : date,
-                    u'status' : u'pengajuan'
-                }
-            },
+            u'bantuan' : [{
+                u'jenis' : bantuan,
+                u'tahap' : tahap,
+                u'tanggal' : current_date,
+                u'status' : u'pengajuan'
+            }],
             u'kesehatan' : kesehatan,
             u'atap' : atap,
             u'dinding' : dinding,
             u'lantai' : lantai,
             u'penerangan' : penerangan,
             u'air' : air,
-            u'luasrumah' : luas_rumah
+            u'luas_rumah' : luas_rumah
         })
         return jsonify({"status":"nik telah terdaftar"})
 

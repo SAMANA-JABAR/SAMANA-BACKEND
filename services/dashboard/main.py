@@ -12,7 +12,7 @@ db = firestore.Client()
 app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
-def get_user():
+def get_dashboard():
     #get request form
     nik = request.form.get("nik")
 
@@ -22,16 +22,17 @@ def get_user():
     user = doc.to_dict()
 
     #get the latest bantuan
-    bantuan = user["bantuan"]
-    current_bantuan = max(bantuan)
+    bantuan = user['bantuan']
+    current_bantuan = max(bantuan, key=lambda x:x['timestamp'])
 
+    #assign user data to profile dict
     profile = {
-        "nik" = user["nik"]
-        "nama" = user["nama"]
-        "bantuan" = bantuan[current_bantuan]['jenis']
-        "status" = bantuan[current_bantuan]['status']
+        "nik" : user['nik'],
+        "nama" : user['nama'],
+        "bantuan" : current_bantuan['jenis'],
+        "status" : current_bantuan['status']
     }
-    return
+    return jsonify(profile)
 
 if __name__ == '__main__':
     app.run(debug=True)

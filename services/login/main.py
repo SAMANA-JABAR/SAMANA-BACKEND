@@ -25,7 +25,32 @@ def get_user():
         #check if password already set
         if "password" in user:
             if user["password"] == password:
-                return jsonify(user)
+                if 'bantuan' in user:
+                    #get the latest bantuan
+                    bantuan = user['bantuan']
+                    current_bantuan = bantuan[-1]
+
+                    profile = {
+                        "nik" : user['nik'],
+                        "nama" : user['nama'],
+                        "password" : user['password'],
+                        "bantuan" : current_bantuan['jenis'],
+                        "status" : current_bantuan['status']
+                    }
+                    return jsonify(profile)
+                elif 'nama' in user:
+                    profile = {
+                        "nik" : user['nik'],
+                        "nama" : user['nama'],
+                        "password" : user['password']
+                    }
+                    return jsonify(profile)
+                else:
+                    profile = {
+                        "nik" : user['nik'],
+                        "password" : user['password']
+                    }
+                    return jsonify(profile)
             else:
                 return jsonify({"status":"nik dan password tidak sesuai"}), 401
         else:

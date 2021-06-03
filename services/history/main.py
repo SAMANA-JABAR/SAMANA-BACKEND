@@ -22,7 +22,15 @@ def get_history():
     user = doc.to_dict()
 
     #return field bantuan as history of bantuan
-    history = user["bantuan"]
+    bantuan = user["bantuan"]
+    history = []
+    for data in bantuan:
+        #check if bantuan already validated
+        #only return bantuan that already validated
+        if 'validasi' in data:
+            validasi = data['validasi']
+            if validasi != None:
+                history.append(data)
     return jsonify(history)
 
 if __name__ == '__main__':

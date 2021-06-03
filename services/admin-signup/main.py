@@ -15,7 +15,7 @@ app = Flask(__name__)
 def add_admin():
     #get request form
     email = request.form.get("email")
-    name = request.form.get("nama")
+    name = request.form.get("name")
     username = request.form.get("username")
     password = request.form.get("password")
 
@@ -38,7 +38,7 @@ def add_admin():
         #add nik and password to users collection
         doc_ref.set({
             u'email' : email,
-            u'nama' : name,
+            u'name' : name,
             u'username' : username,
             u'password' : password
         })

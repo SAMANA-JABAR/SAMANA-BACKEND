@@ -15,25 +15,35 @@ app = Flask(__name__)
 def get_validate():
     #get request form
     nik = request.form.get("nik")
+    validasi = request.form.get("validasi")
 
     #get user data from database
     doc_ref = db.collection(u'users').document(nik)
     doc = doc_ref.get()
     user = doc.to_dict()
+    if 'bantuan' in user:
+        #get the latest bantuan
+        bantuan = user['bantuan']
+        current_bantuan = bantuan[-1]
 
-    #get the latest bantuan
-    bantuan = user['bantuan']
-    current_bantuan = max(bantuan, key=lambda x:x['timestamp'])
+        #remove current bantuan
+        #this will be added again after update
+        doc_ref.update({
+            u'bantuan' : firestore.ArrayRemove([current_bantuan])
+        })
 
-    nik = user['nik']
-    nama = user['nama']
-    current_bantuan['jenis']
-    status = current_bantuan['status']
+        #add validation
+        current_bantuan['validasi'] = validasi
 
-    if status == 'diterima':
-        result = 'nik {nik} atas nama {nama} terdaftar sebagai penerima {jenis}.'.format(nik = nik, nama = nama, jenis = jenis)
-    elif status == 'tidak':
-        result = 'nik {nik} atas nama {nama} tidak terdaftar sebagai penerima {jenis}.'.format(nik = nik, nama = nama, jenis = jenis)
+        #add updated bantuan
+        doc_ref.update({
+            u'bantuan' : firestore.ArrayUnion([current_bantuan])
+        })
+
+        return jsonify({"status":"nik berhasil divalidasi"})
+
+    else:
+        return jsonify({"status":"nik belum didaftarkan sebagai calon penerima bantuan"})
 
 if __name__ == '__main__':
     app.run(debug=True)
