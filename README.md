@@ -3,6 +3,9 @@
 ## Introduction
 This is a backend services repository for SAMANA-ADMIN and SAMANA-USER apps.
 
+## System Design
+![System Design](images/SAMANA-system-design.jpg)
+
 ## Guide to Deploy
 This guide informs how to deploy all of the resources in this repository to Google Cloud Platform. All of the resources under the /services directory are a REST API service to perform several tasks from mobile apps. This API is created on purpose for App Engine GCP. Each service contains 3 file:
 - main.py
